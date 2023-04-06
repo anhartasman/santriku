@@ -179,11 +179,24 @@ class child_profile extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(height: 15.0),
-                              TaskColumn(
-                                icon: Icons.edit,
-                                iconBackgroundColor: LightColors.kRed,
-                                title: 'Evaluasi',
-                                subtitle: 'Form Perkembangan Anak',
+                              InkWell(
+                                onTap: () => Get.toNamed(
+                                  Routes.formEvaluationRoute,
+                                  arguments: {"childId": theMember.id},
+                                )?.then((value) {
+                                  if (value == true) {
+                                    BlocProvider.of<FamilyMemberDetailBloc>(
+                                            context)
+                                        .add(FamilyMemberDetailBlocRetrieve(
+                                            theMember.id));
+                                  }
+                                }),
+                                child: TaskColumn(
+                                  icon: Icons.edit,
+                                  iconBackgroundColor: LightColors.kRed,
+                                  title: 'Evaluasi',
+                                  subtitle: 'Form Perkembangan Anak',
+                                ),
                               ),
                               SizedBox(
                                 height: 15.0,

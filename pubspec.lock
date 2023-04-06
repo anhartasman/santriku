@@ -165,6 +165,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.14"
+  flutter_rounded_date_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_rounded_date_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.2"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -509,6 +516,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  swipebuttonflutter:
+    dependency: "direct main"
+    description:
+      name: swipebuttonflutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   synchronized:
     dependency: transitive
     description:

@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:saibupi/architectures/data/datasources/local/queries/EvaluationQuery.dart';
 import 'package:saibupi/architectures/data/datasources/local/queries/MemberQuery.dart';
+import 'package:saibupi/architectures/domain/entities/FamilyEvaluation.dart';
 import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -19,6 +21,7 @@ class DbHelper {
 
   final tables = [
     MemberQuery.CREATE_TABLE,
+    EvaluationQuery.createTable(),
   ]; // membuat daftar table yang akan dibuat
 
   Future<Database> initDb() async {
@@ -27,7 +30,8 @@ class DbHelper {
     String path = directory.path + 'contact.db';
 
     //create, read databases
-    var todoDatabase = openDatabase(path, version: 1, onCreate: _createDb);
+    var todoDatabase = openDatabase(path,
+        version: 4, onCreate: _createDb, onUpgrade: _onUpgradeDB);
 
     //mengembalikan nilai object sebagai hasil dari fungsinya
     return todoDatabase;
@@ -35,6 +39,16 @@ class DbHelper {
 
   //buat tabel baru dengan nama contact
   void _createDb(Database db, int version) async {
+    for (final table in tables) {
+      await db.execute(table).then((value) {
+        print("berhasil ");
+      }).catchError((err) {
+        print("errornya ${err.toString()}");
+      });
+    }
+  }
+
+  void _onUpgradeDB(Database db, int oldVersion, int newVersion) async {
     for (final table in tables) {
       await db.execute(table).then((value) {
         print("berhasil ");
@@ -73,7 +87,7 @@ class DbHelper {
   Future<int> insertFamilyMember(FamilyMember object) async {
     final db = await initDb();
     var theMap = object.toMap();
-    theMap["id"] = null;
+    theMap.remove("id");
     int count = await db.insert(MemberQuery.TABLE_NAME, theMap);
     return count;
   }
@@ -84,6 +98,83 @@ class DbHelper {
     int count = await db.update(MemberQuery.TABLE_NAME, object.toMap(),
         where: 'id=?', whereArgs: [object.id]);
     return count;
+  }
+
+  Future<int> insertFamilyEvaluation(FamilyEvaluation object) async {
+    final db = await initDb();
+    var theMap = evaluationMap(object);
+    theMap.remove("id");
+    int count = await db.insert(EvaluationQuery.TABLE_NAME, theMap);
+    return count;
+  }
+
+  Future<int> updateFamilyEvaluation(FamilyEvaluation object) async {
+    final db = await initDb();
+    var theMap = evaluationMap(object);
+    int count = await db.update(EvaluationQuery.TABLE_NAME, theMap,
+        where: 'id=?', whereArgs: [object.id]);
+    return count;
+  }
+
+  Map<String, dynamic> evaluationMap(FamilyEvaluation theEvaluation) {
+    var theMap = theEvaluation.toMap();
+    theEvaluation.answers.asMap().forEach((key, value) {
+      theMap["pertanyaan${key}"] = value;
+    });
+    theMap.remove("answers");
+    print("hasil konvert " + theMap.toString());
+    return theMap;
+  }
+
+  Future<List<FamilyEvaluation>> selectFamilyEvaluation({int? id}) async {
+    final db = await initDb();
+    final result = await db.query(
+      EvaluationQuery.TABLE_NAME,
+      where: id == null ? null : "id=?",
+      whereArgs: id == null ? null : [id],
+      orderBy: 'id',
+    );
+
+    List<FamilyEvaluation> theRespon = [];
+
+    for (var theResult in result) {
+      var newMap = Map.of(theResult);
+
+      var rowAbsen = FamilyEvaluation.fromMap(newMap);
+
+      theRespon.add(rowAbsen);
+    }
+    // if (theRespon.isNotEmpty) {
+    //   delete(theRespon[0].id);
+    // }
+
+    return theRespon;
+  }
+
+  Future<List<FamilyEvaluation>> selectFamilyEvaluationByDate(
+      String date) async {
+    final db = await initDb();
+    final result = await db.query(
+      EvaluationQuery.TABLE_NAME,
+      where: "date=?",
+      whereArgs: [date],
+      orderBy: 'id',
+    );
+
+    List<FamilyEvaluation> theRespon = [];
+
+    for (var theResult in result) {
+      var newMap = Map.of(theResult);
+
+      var rowAbsen = FamilyEvaluation.fromMap(newMap);
+
+      theRespon.add(rowAbsen);
+    }
+    // if (theRespon.isNotEmpty) {
+    //   delete(theRespon[0].id);
+    // }
+
+    return theRespon;
   }
 
 //delete databases

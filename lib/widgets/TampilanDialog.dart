@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -244,6 +245,31 @@ class TampilanDialog {
       ),
     ));
     return isiKonfirm;
+  }
+
+  static Future<DateTime?> DatePicker({
+    DateTime? initialDate,
+    DateTime? firstDate,
+    DateTime? lastDate,
+    bool yearFirst: false,
+  }) {
+    return showRoundedDatePicker(
+      context: Get.context!,
+      locale: Locale("id", "ID"),
+      initialDatePickerMode:
+          yearFirst ? DatePickerMode.year : DatePickerMode.day,
+      initialDate: initialDate ?? DateTime.now(),
+      firstDate: firstDate ?? DateTime.now().subtract(Duration(days: 1)),
+      lastDate: lastDate ?? DateTime(DateTime.now().year + 2),
+      borderRadius: 16,
+    ).then((newDateTime) {
+      return newDateTime;
+      // if (newDateTime != null) {
+      //   return newDateTime;
+      // }
+
+      // return initialDate ?? DateTime.now();
+    });
   }
 }
 
