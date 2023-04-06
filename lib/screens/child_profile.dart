@@ -201,11 +201,24 @@ class child_profile extends StatelessWidget {
                               SizedBox(
                                 height: 15.0,
                               ),
-                              TaskColumn(
-                                icon: Icons.calendar_month,
-                                iconBackgroundColor: LightColors.kDarkYellow,
-                                title: 'Laporan',
-                                subtitle: 'Laporan Perkembangan Anak',
+                              InkWell(
+                                onTap: () => Get.toNamed(
+                                  Routes.reportEvaluationRoute,
+                                  arguments: theMember,
+                                )?.then((value) {
+                                  if (value == true) {
+                                    BlocProvider.of<FamilyMemberDetailBloc>(
+                                            context)
+                                        .add(FamilyMemberDetailBlocRetrieve(
+                                            theMember.id));
+                                  }
+                                }),
+                                child: TaskColumn(
+                                  icon: Icons.calendar_month,
+                                  iconBackgroundColor: LightColors.kDarkYellow,
+                                  title: 'Laporan',
+                                  subtitle: 'Laporan Perkembangan Anak',
+                                ),
                               ),
                               SizedBox(height: 15.0),
                               InkWell(

@@ -1,41 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_date_pickers/flutter_date_pickers.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:get/get.dart';
 import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
+import 'package:saibupi/screens/calendar_page.dart';
 import 'package:saibupi/theme/colors/light_colors.dart';
 import 'package:saibupi/widgets/top_container.dart';
 import 'package:saibupi/widgets/back_button.dart';
 import 'package:saibupi/widgets/my_text_field.dart';
 import 'package:saibupi/screens/home_page.dart';
 
-class report_evaluation extends StatelessWidget {
+class report_evaluation extends StatefulWidget {
   final FamilyMember theChild;
   const report_evaluation({required this.theChild});
+
+  @override
+  State<report_evaluation> createState() => _report_evaluationState();
+}
+
+class _report_evaluationState extends State<report_evaluation> {
+  final formKey = GlobalKey<FormBuilderState>();
+  late DateTime today;
+  late DateTime firstDate;
+  late DateTime lastDate;
+  Color selectedPeriodStartColor = Colors.blue;
+  Color selectedPeriodLastColor = Colors.blue;
+  Color selectedPeriodMiddleColor = Colors.blue;
+  @override
+  void initState() {
+    today = DateTime.now();
+    firstDate = today.subtract(Duration(days: 365));
+    lastDate = today.add(Duration(days: 365));
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // defaults for styles
+    selectedPeriodLastColor = Theme.of(context).colorScheme.secondary;
+    selectedPeriodMiddleColor = Theme.of(context).colorScheme.secondary;
+    selectedPeriodStartColor = Theme.of(context).colorScheme.secondary;
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    var downwardIcon = Icon(
-      Icons.keyboard_arrow_down,
-      color: Colors.black54,
+
+    DatePickerRangeStyles styles = DatePickerRangeStyles(
+      selectedPeriodLastDecoration: BoxDecoration(
+          color: selectedPeriodLastColor,
+          borderRadius: BorderRadiusDirectional.only(
+              topEnd: Radius.circular(10.0), bottomEnd: Radius.circular(10.0))),
+      selectedPeriodStartDecoration: BoxDecoration(
+        color: selectedPeriodStartColor,
+        borderRadius: BorderRadiusDirectional.only(
+            topStart: Radius.circular(10.0),
+            bottomStart: Radius.circular(10.0)),
+      ),
+      displayedPeriodTitle: TextStyle(
+        color: Colors.white,
+      ),
+      defaultDateTextStyle: TextStyle(
+        color: Colors.white,
+      ),
+      dayHeaderStyle: DayHeaderStyle(
+        textStyle: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      selectedPeriodMiddleDecoration: BoxDecoration(
+          color: selectedPeriodMiddleColor, shape: BoxShape.rectangle),
     );
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            TopContainer(
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
-              height: null,
+      body: Column(
+        children: <Widget>[
+          TopContainer(
+            padding: EdgeInsets.fromLTRB(20, 20, 20, 16),
+            height: null,
+            child: SafeArea(
               child: Column(
                 children: <Widget>[
-                  MyBackButton(),
-                  SizedBox(
-                    height: 30,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Create new task',
+                        'Laporan Evaluasi',
                         style: TextStyle(
-                            fontSize: 30.0, fontWeight: FontWeight.w700),
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -44,109 +100,34 @@ class report_evaluation extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      MyTextField(label: 'Title'),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Expanded(
-                            child: MyTextField(
-                              label: 'Date',
-                              icon: downwardIcon,
-                            ),
-                          ),
-                          HomePage.calendarIcon(),
-                        ],
-                      )
+                      WeekPicker(
+                        selectedDate: today,
+                        onChanged: (DatePeriod datePeriod) {
+                          setState(() {
+                            today = datePeriod.start;
+                          });
+                        },
+                        firstDate: firstDate,
+                        lastDate: lastDate,
+                        datePickerStyles: styles,
+                      ),
                     ],
                   ))
                 ],
               ),
             ),
-            Expanded(
-                child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                          child: MyTextField(
-                        label: 'Start Time',
-                        icon: downwardIcon,
-                      )),
-                      SizedBox(width: 40),
-                      Expanded(
-                        child: MyTextField(
-                          label: 'End Time',
-                          icon: downwardIcon,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  MyTextField(
-                    label: 'Description',
-                    minLines: 3,
-                    maxLines: 3,
-                  ),
-                  SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Category',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          //direction: Axis.vertical,
-                          alignment: WrapAlignment.start,
-                          verticalDirection: VerticalDirection.down,
-                          runSpacing: 0,
-                          //textDirection: TextDirection.rtl,
-                          spacing: 10.0,
-                          children: <Widget>[
-                            Chip(
-                              label: Text("SPORT APP"),
-                              backgroundColor: LightColors.kRed,
-                              labelStyle: TextStyle(color: Colors.white),
-                            ),
-                            Chip(
-                              label: Text("MEDICAL APP"),
-                            ),
-                            Chip(
-                              label: Text("RENT APP"),
-                            ),
-                            Chip(
-                              label: Text("NOTES"),
-                            ),
-                            Chip(
-                              label: Text("GAMING PLATFORM APP"),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )),
-            Container(
-              height: 80,
-              width: width,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
+          ),
+          Container(
+            height: 80,
+            width: width,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                InkWell(
+                  onTap: () => Get.to(CalendarPage()),
+                  child: Container(
                     child: Text(
-                      'Create Task',
+                      'Cari Laporan',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
@@ -160,11 +141,11 @@ class report_evaluation extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

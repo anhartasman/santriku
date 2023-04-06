@@ -13,6 +13,7 @@ import 'package:saibupi/theme/decorations/box_decoration.dart';
 import 'package:saibupi/widgets/TampilanDialog.dart';
 import 'package:saibupi/widgets/back_button.dart';
 import 'package:saibupi/widgets/reusables/ReusableFormField.dart';
+import 'package:saibupi/widgets/top_container.dart';
 
 class form_evaluation extends StatefulWidget {
   final int childId;
@@ -74,9 +75,32 @@ class _form_evaluationState extends State<form_evaluation> {
           key: formKey,
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: MyBackButton(),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 20),
+              //   child: MyBackButton(),
+              // ),
+              TopContainer(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 40),
+                height: null,
+                child: Column(
+                  children: <Widget>[
+                    MyBackButton(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Form Evaluasi',
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.w700),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
               Expanded(
                   child: SingleChildScrollView(
