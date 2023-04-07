@@ -6,7 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:saibupi/architectures/domain/entities/FamilyEvaluation.dart';
 import 'package:saibupi/bloc/family_evaluation_save/bloc.dart';
-import 'package:saibupi/enums/enum_evaluasi.dart';
+import 'package:saibupi/enums/enum_pertanyaan_evaluasi.dart';
 import 'package:saibupi/helpers/extensions/ext_string.dart';
 import 'package:saibupi/theme/colors/Warna.dart';
 import 'package:saibupi/theme/decorations/box_decoration.dart';
@@ -55,7 +55,7 @@ class _form_evaluationState extends State<form_evaluation> {
     today = DateTime.now();
     firstDate = today.subtract(Duration(days: 60));
     lastDate = today;
-    for (var element in Evaluasi.values) {
+    for (var element in PertanyaanEvaluasi.values) {
       jawabanList.add(-1);
     }
     super.initState();
@@ -171,9 +171,10 @@ class _form_evaluationState extends State<form_evaluation> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
-                        children:
-                            List.generate(Evaluasi.values.length, (index) {
-                          final theEvaluasi = Evaluasi.values[index];
+                        children: List.generate(
+                            PertanyaanEvaluasi.values.length, (index) {
+                          final thePertanyaanEvaluasi =
+                              PertanyaanEvaluasi.values[index];
                           return Column(
                             children: [
                               Padding(
@@ -181,7 +182,7 @@ class _form_evaluationState extends State<form_evaluation> {
                                   top: 25.0,
                                   left: 16,
                                 ),
-                                child: Text(theEvaluasi.label,
+                                child: Text(thePertanyaanEvaluasi.label,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16,

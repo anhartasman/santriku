@@ -3,6 +3,8 @@ import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
+import 'package:saibupi/helpers/extensions/ext_string.dart';
+import 'package:saibupi/routes/app_routes.dart';
 import 'package:saibupi/screens/calendar_page.dart';
 import 'package:saibupi/theme/colors/light_colors.dart';
 import 'package:saibupi/widgets/top_container.dart';
@@ -21,6 +23,8 @@ class report_evaluation extends StatefulWidget {
 class _report_evaluationState extends State<report_evaluation> {
   final formKey = GlobalKey<FormBuilderState>();
   late DateTime today;
+  late DateTime sunday;
+  late DateTime saturday;
   late DateTime firstDate;
   late DateTime lastDate;
   Color selectedPeriodStartColor = Colors.blue;
@@ -29,6 +33,8 @@ class _report_evaluationState extends State<report_evaluation> {
   @override
   void initState() {
     today = DateTime.now();
+    sunday = findFirstDateOfTheWeek(today);
+    saturday = sunday.add(Duration(days: 6));
     firstDate = today.subtract(Duration(days: 365));
     lastDate = today.add(Duration(days: 365));
     super.initState();
@@ -42,6 +48,12 @@ class _report_evaluationState extends State<report_evaluation> {
     selectedPeriodLastColor = Theme.of(context).colorScheme.secondary;
     selectedPeriodMiddleColor = Theme.of(context).colorScheme.secondary;
     selectedPeriodStartColor = Theme.of(context).colorScheme.secondary;
+  }
+
+  DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+    return DateTime(
+        dateTime.year, dateTime.month, dateTime.day - dateTime.weekday % 7);
+    return dateTime.subtract(Duration(days: dateTime.weekday - 1));
   }
 
   @override
@@ -101,8 +113,11 @@ class _report_evaluationState extends State<report_evaluation> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       WeekPicker(
+                        datePickerLayoutSettings: DatePickerLayoutSettings(),
                         selectedDate: today,
                         onChanged: (DatePeriod datePeriod) {
+                          sunday = datePeriod.start;
+                          saturday = datePeriod.end;
                           setState(() {
                             today = datePeriod.start;
                           });
@@ -124,7 +139,12 @@ class _report_evaluationState extends State<report_evaluation> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 InkWell(
-                  onTap: () => Get.to(CalendarPage()),
+                  onTap: () =>
+                      Get.toNamed(Routes.evaluationHistoryRoute, arguments: {
+                    "childId": widget.theChild.id,
+                    "firstDate": sunday,
+                    "lastDate": saturday,
+                  }),
                   child: Container(
                     child: Text(
                       'Cari Laporan',

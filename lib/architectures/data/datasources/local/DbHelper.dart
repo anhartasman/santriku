@@ -140,9 +140,7 @@ class DbHelper {
     for (var theResult in result) {
       var newMap = Map.of(theResult);
 
-      var rowAbsen = FamilyEvaluation.fromMap(newMap);
-
-      theRespon.add(rowAbsen);
+      theRespon.add(evaluationFromMap(newMap));
     }
     // if (theRespon.isNotEmpty) {
     //   delete(theRespon[0].id);
@@ -166,15 +164,50 @@ class DbHelper {
     for (var theResult in result) {
       var newMap = Map.of(theResult);
 
-      var rowAbsen = FamilyEvaluation.fromMap(newMap);
-
-      theRespon.add(rowAbsen);
+      theRespon.add(evaluationFromMap(newMap));
     }
     // if (theRespon.isNotEmpty) {
     //   delete(theRespon[0].id);
     // }
 
     return theRespon;
+  }
+
+  Future<List<FamilyEvaluation>> selectFamilyEvaluationByDateRange(
+      String firstDate, String lastDate) async {
+    final db = await initDb();
+    final result = await db.query(
+      EvaluationQuery.TABLE_NAME,
+      where: "date >= ? and date <= ? ",
+      whereArgs: [
+        firstDate,
+        lastDate,
+      ],
+      orderBy: 'id',
+    );
+
+    List<FamilyEvaluation> theRespon = [];
+
+    for (var theResult in result) {
+      var newMap = Map.of(theResult);
+
+      theRespon.add(evaluationFromMap(newMap));
+    }
+    // if (theRespon.isNotEmpty) {
+    //   delete(theRespon[0].id);
+    // }
+
+    return theRespon;
+  }
+
+  FamilyEvaluation evaluationFromMap(Map<String, Object?> newMap) {
+    List<int> answers = [];
+    for (int i = 0; i < 10; i++) {
+      answers.add(newMap["pertanyaan$i"] as int);
+    }
+    newMap["answers"] = answers;
+    var rowAbsen = FamilyEvaluation.fromMap(newMap);
+    return rowAbsen;
   }
 
 //delete databases

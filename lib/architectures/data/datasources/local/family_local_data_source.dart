@@ -37,4 +37,12 @@ class FamilyLocalDataSource {
       await helper.insertFamilyEvaluation(newEvaluation);
     }
   }
+
+  static Future<List<FamilyEvaluation>> evaluationResult(
+      String firstDate, String lastDate) async {
+    final DbHelper helper = DbHelper();
+    final resultList =
+        await helper.selectFamilyEvaluationByDateRange(firstDate, lastDate);
+    return resultList;
+  }
 }

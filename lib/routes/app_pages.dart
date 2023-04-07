@@ -3,12 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
+import 'package:saibupi/bloc/family_evaluation_history/family_evaluation_history_bloc.dart';
+import 'package:saibupi/bloc/family_evaluation_history/family_evaluation_history_bloc_event.dart';
 import 'package:saibupi/bloc/family_evaluation_save/family_evaluation_save_bloc.dart';
 import 'package:saibupi/bloc/family_member_detail/bloc.dart';
 import 'package:saibupi/bloc/family_member_save/family_member_save_bloc.dart';
+import 'package:saibupi/helpers/extensions/ext_string.dart';
 import 'package:saibupi/routes/app_routes.dart';
 import 'package:saibupi/injection_container.dart' as di;
 import 'package:saibupi/screens/child_profile.dart';
+import 'package:saibupi/screens/evaluation_history.dart';
 import 'package:saibupi/screens/form_child.dart';
 import 'package:saibupi/screens/form_evaluation.dart';
 import 'package:saibupi/screens/home_page.dart';
@@ -64,6 +68,32 @@ final appPages = [
         ],
         child: report_evaluation(
           theChild: theChild,
+        ),
+      );
+    },
+  ),
+  GetPage(
+    name: Routes.evaluationHistoryRoute,
+    page: () {
+      final childId = Get.arguments["childId"];
+      final firstDate = Get.arguments["firstDate"] as DateTime;
+      final lastDate = Get.arguments["lastDate"] as DateTime;
+      print("search childId $childId");
+      print("search firstDate $firstDate");
+      print("search lastDate $lastDate");
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider<FamilyEvaluationHistoryBloc>(
+              create: (BuildContext context) =>
+                  di.sl<FamilyEvaluationHistoryBloc>()
+                    ..add(FamilyEvaluationHistoryBlocStart(
+                        firstDate.toTanggal("yyyy-MM-dd"),
+                        lastDate.toTanggal("yyyy-MM-dd")))),
+        ],
+        child: evaluation_history(
+          childId: childId,
+          firstDate: firstDate,
+          lastDate: lastDate,
         ),
       );
     },

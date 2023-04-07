@@ -30,4 +30,11 @@ class DataFamilyRepository implements FamilyRepository {
   Future<void> saveEvaluation(FamilyEvaluation theEvaluation) async {
     await FamilyLocalDataSource.saveEvaluation(theEvaluation);
   }
+
+  Future<List<FamilyEvaluation>> evaluationResult(
+      String firstDate, String lastDate) async {
+    final resultList =
+        await FamilyLocalDataSource.evaluationResult(firstDate, lastDate);
+    return resultList;
+  }
 }

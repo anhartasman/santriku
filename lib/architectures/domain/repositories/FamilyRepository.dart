@@ -6,4 +6,6 @@ abstract class FamilyRepository {
   Future<void> saveMember(FamilyMember theMember);
   Future<FamilyMember> memberDetail(int id);
   Future<void> saveEvaluation(FamilyEvaluation theEvaluation);
+  Future<List<FamilyEvaluation>> evaluationResult(
+      String firstDate, String lastDate);
 }

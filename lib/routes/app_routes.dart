@@ -5,6 +5,7 @@ abstract class Routes {
   static const detailChildRoute = Paths.detailChildPath;
   static const formEvaluationRoute = Paths.formEvaluationPath;
   static const reportEvaluationRoute = Paths.reportEvaluationPath;
+  static const evaluationHistoryRoute = Paths.evaluationHistoryath;
 }
 
 abstract class Paths {
@@ -14,4 +15,5 @@ abstract class Paths {
   static const detailChildPath = "/detailChild";
   static const formEvaluationPath = "/formEvaluation";
   static const reportEvaluationPath = "/reportEvaluation";
+  static const evaluationHistoryath = "/evaluationHistory";
 }

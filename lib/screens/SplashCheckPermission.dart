@@ -112,19 +112,19 @@ class _SplashCheckPermissionState extends State<SplashCheckPermission> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: SplashContent(),
+            ),
+            SizedBox(height: 16),
+            if (gagalPermission)
               Padding(
-                padding: const EdgeInsets.only(top: 40.0),
-                child: SplashContent(),
-              ),
-              SizedBox(height: 16),
-              if (gagalPermission)
-                Column(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -161,8 +161,8 @@ class _SplashCheckPermissionState extends State<SplashCheckPermission> {
                     SizedBox(height: 16),
                   ],
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );

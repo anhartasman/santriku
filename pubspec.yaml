@@ -58,6 +58,7 @@ dependencies:
   flutter_rounded_date_picker: ^3.0.2 
   flutter_date_pickers: ^0.4.1
   swipebuttonflutter: ^1.0.0
+  syncfusion_flutter_charts: ^21.1.38
 
 dev_dependencies:
   flutter_test:
@@ -96,5 +97,14 @@ flutter:
           weight: 700
         - asset: assets/fonts/Poppins-ExtraBold.ttf
           weight: 800
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+          weight: 600
 
   
