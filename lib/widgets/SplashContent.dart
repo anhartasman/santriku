@@ -4,22 +4,17 @@ import 'package:saibupi/theme/colors/light_colors.dart';
 class SplashContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double appHeight = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.only(bottom: 40.0),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 40.0),
           child: Center(
-            child: Text(
-              "-Saibupi-",
-              style: TextStyle(
-                fontSize: 75,
-                fontFamily: 'Anydore',
-                color: Color(0xFFED6355),
-                fontWeight: FontWeight.w400,
-              ),
+            child: Image.asset(
+              "assets/images/logo_saibupi.png",
+              height: 100,
             ),
           ),
         ),
@@ -71,7 +66,10 @@ class SplashContent extends StatelessWidget {
             ),
           ),
         ),
-        Image.asset("assets/images/pana.png"),
+        Image.asset(
+          "assets/images/pana.png",
+          height: appHeight * 0.4,
+        ),
       ],
     );
   }

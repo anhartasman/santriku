@@ -198,7 +198,7 @@ class _form_evaluationState extends State<form_evaluation> {
                                     context,
                                     name: "sudahTanya${index}",
                                     itemText: (bool value) {
-                                      return value ? "Sudah" : "Belum";
+                                      return value ? "Ya" : "Tidak";
                                     },
                                     onChanged: (bool? value) {
                                       if (value != null) {
