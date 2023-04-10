@@ -13,6 +13,7 @@ import 'package:saibupi/routes/app_routes.dart';
 import 'package:saibupi/screens/calendar_page.dart';
 import 'package:saibupi/screens/evaluation_child_page.dart';
 import 'package:saibupi/screens/form_child.dart';
+import 'package:saibupi/screens/read_penggunaan_gadget.dart';
 import 'package:saibupi/screens/read_tips_solusi.dart';
 import 'package:saibupi/theme/colors/Warna.dart';
 import 'package:saibupi/theme/colors/light_colors.dart';
@@ -141,31 +142,34 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Container(
-                          margin: EdgeInsets.only(right: 8),
-                          padding: EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFAEDBF8),
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Stack(
-                            children: [
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Image.asset(
-                                      "assets/images/online_tech.png")),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 16.0),
-                                child: Text("Pemanfaatan Gadget",
-                                    style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ),
-                            ],
-                          )),
+                      child: InkWell(
+                        onTap: () => Get.to(read_penggunaan_gadget()),
+                        child: Container(
+                            margin: EdgeInsets.only(right: 8),
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFAEDBF8),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Stack(
+                              children: [
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Image.asset(
+                                        "assets/images/online_tech.png")),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 16.0),
+                                  child: Text("Pemanfaatan Gadget",
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ),
+                              ],
+                            )),
+                      ),
                     ),
                   ],
                 ),
