@@ -73,28 +73,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 30.0),
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(18)),
-                      color: Color(0xFF455A64),
-                    ),
-                    child: Text("Halaman Menu",
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 8,
