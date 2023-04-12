@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
 
 class MyBackButton extends StatelessWidget {
   final Color? color;

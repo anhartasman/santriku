@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
-import 'package:saibupi/helpers/extensions/ext_string.dart';
-import 'package:saibupi/routes/app_routes.dart';
-import 'package:saibupi/screens/calendar_page.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/top_container.dart';
-import 'package:saibupi/widgets/back_button.dart';
-import 'package:saibupi/widgets/my_text_field.dart';
-import 'package:saibupi/screens/home_page.dart';
+import 'package:santriku/architectures/domain/entities/PesantrenMember.dart';
+import 'package:santriku/helpers/extensions/ext_string.dart';
+import 'package:santriku/routes/app_routes.dart';
+import 'package:santriku/screens/calendar_page.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/top_container.dart';
+import 'package:santriku/widgets/back_button.dart';
+import 'package:santriku/widgets/my_text_field.dart';
+import 'package:santriku/screens/home_page.dart';
 
 class report_evaluation extends StatefulWidget {
-  final FamilyMember theChild;
+  final PesantrenMember theChild;
   const report_evaluation({required this.theChild});
 
   @override
@@ -141,7 +141,7 @@ class _report_evaluationState extends State<report_evaluation> {
                 InkWell(
                   onTap: () =>
                       Get.toNamed(Routes.evaluationHistoryRoute, arguments: {
-                    "childId": widget.theChild.id,
+                    "studentId": widget.theChild.id,
                     "firstDate": sunday,
                     "lastDate": saturday,
                   }),

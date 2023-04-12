@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:saibupi/screens/home_page.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/routes/app_pages.dart';
-import 'package:saibupi/injection_container.dart' as di;
+import 'package:santriku/screens/home_page.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/routes/app_pages.dart';
+import 'package:santriku/injection_container.dart' as di;
 import 'package:flutter/services.dart';
 
 void main() {

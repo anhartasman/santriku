@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:saibupi/screens/models/IzinAplikasi.dart';
-import 'package:saibupi/widgets/ButtonMain.dart';
-import 'package:saibupi/widgets/ButtonPutih.dart';
-import 'package:saibupi/widgets/SplashContent.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
+import 'package:santriku/screens/models/IzinAplikasi.dart';
+import 'package:santriku/widgets/ButtonMain.dart';
+import 'package:santriku/widgets/ButtonPutih.dart';
+import 'package:santriku/widgets/SplashContent.dart';
+import 'package:santriku/widgets/TampilanDialog.dart';
 
 class SplashCheckPermission extends StatefulWidget {
   final Function onSuccess;

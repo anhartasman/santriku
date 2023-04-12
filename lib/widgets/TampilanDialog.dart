@@ -6,9 +6,9 @@ import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/widgets/ButtonMain.dart';
-import 'package:saibupi/widgets/ButtonPutih.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/widgets/ButtonMain.dart';
+import 'package:santriku/widgets/ButtonPutih.dart';
 
 class TampilanDialog {
   static Future<File?> DialogFilePicker() async {

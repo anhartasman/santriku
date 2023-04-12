@@ -5,18 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
-import 'package:saibupi/bloc/family_member_detail/bloc.dart';
-import 'package:saibupi/bloc/family_member_list/bloc.dart';
-import 'package:saibupi/routes/app_routes.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
+import 'package:santriku/architectures/domain/entities/PesantrenMember.dart';
+import 'package:santriku/bloc/pesantren_member_detail/bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/bloc.dart';
+import 'package:santriku/routes/app_routes.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/TampilanDialog.dart';
 
 class ChildCard extends StatelessWidget {
   final Color cardColor;
   final Color circleColor;
-  final FamilyMember initiatedMember;
+  final PesantrenMember initiatedMember;
 
   const ChildCard({
     required this.cardColor,
@@ -27,14 +27,14 @@ class ChildCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final childImage = decodeImageFromList(base64Decode(photo));
-    FamilyMember theMember = initiatedMember;
-    return BlocConsumer<FamilyMemberDetailBloc, FamilyMemberDetailBlocState>(
-        listener: (context, state) {
-      if (state is FamilyMemberDetailOnError && state.id == theMember.id) {
+    PesantrenMember theMember = initiatedMember;
+    return BlocConsumer<PesantrenMemberDetailBloc,
+        PesantrenMemberDetailBlocState>(listener: (context, state) {
+      if (state is PesantrenMemberDetailOnError && state.id == theMember.id) {
         TampilanDialog.showDialogAlert(state.errorMessage);
       }
     }, builder: (context, state) {
-      if (state is FamilyMemberDetailOnStarted && state.id == theMember.id) {
+      if (state is PesantrenMemberDetailOnStarted && state.id == theMember.id) {
         return Center(
           child: SpinKitWave(
             color: Warna.warnaUtama,
@@ -42,7 +42,7 @@ class ChildCard extends StatelessWidget {
           ),
         );
       }
-      if (state is FamilyMemberDetailOnSuccess &&
+      if (state is PesantrenMemberDetailOnSuccess &&
           state.theMember.id == theMember.id) {
         theMember = state.theMember;
       }
@@ -56,8 +56,8 @@ class ChildCard extends StatelessWidget {
               "cardColor": cardColor,
               "circleColor": circleColor,
             },
-          )?.then((value) => BlocProvider.of<FamilyMemberDetailBloc>(context)
-              .add(FamilyMemberDetailBlocRetrieve(theMember.id))),
+          )?.then((value) => BlocProvider.of<PesantrenMemberDetailBloc>(context)
+              .add(PesantrenMemberDetailBlocRetrieve(theMember.id))),
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 10.0),
             padding: EdgeInsets.all(15.0),
@@ -98,7 +98,7 @@ class ChildCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Anak ke ${theMember.childRank}",
+                      "kelas ${theMember.studentClass}",
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.white,

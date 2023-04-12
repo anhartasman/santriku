@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.learn" "\0"
-            VALUE "FileDescription", "saibupi" "\0"
+            VALUE "FileDescription", "santriku" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "saibupi" "\0"
+            VALUE "InternalName", "santriku" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.learn. All rights reserved." "\0"
-            VALUE "OriginalFilename", "saibupi.exe" "\0"
-            VALUE "ProductName", "saibupi" "\0"
+            VALUE "OriginalFilename", "santriku.exe" "\0"
+            VALUE "ProductName", "santriku" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

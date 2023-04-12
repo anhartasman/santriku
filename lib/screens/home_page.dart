@@ -3,27 +3,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_randomcolor/flutter_randomcolor.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
-import 'package:saibupi/bloc/family_member_detail/family_member_detail_bloc.dart';
-import 'package:saibupi/bloc/family_member_list/bloc.dart';
-import 'package:saibupi/bloc/family_member_list/family_member_list_bloc.dart';
-import 'package:saibupi/bloc/family_member_list/family_member_list_bloc_event.dart';
-import 'package:saibupi/helpers/colors/HexColor.dart';
-import 'package:saibupi/routes/app_routes.dart';
-import 'package:saibupi/screens/calendar_page.dart';
-import 'package:saibupi/screens/evaluation_child_page.dart';
-import 'package:saibupi/screens/form_child.dart';
-import 'package:saibupi/screens/read_penggunaan_gadget.dart';
-import 'package:saibupi/screens/read_tips_solusi.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
+import 'package:santriku/architectures/domain/entities/PesantrenMember.dart';
+import 'package:santriku/bloc/pesantren_member_detail/pesantren_member_detail_bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/pesantren_member_list_bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/pesantren_member_list_bloc_event.dart';
+import 'package:santriku/helpers/colors/HexColor.dart';
+import 'package:santriku/routes/app_routes.dart';
+import 'package:santriku/screens/calendar_page.dart';
+import 'package:santriku/screens/evaluation_child_page.dart';
+import 'package:santriku/screens/form_student.dart';
+import 'package:santriku/screens/image_slide.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
-import 'package:saibupi/widgets/child_card.dart';
-import 'package:saibupi/widgets/task_column.dart';
-import 'package:saibupi/widgets/active_project_card.dart';
-import 'package:saibupi/widgets/top_container.dart';
-import 'package:saibupi/injection_container.dart' as di;
+import 'package:santriku/widgets/TampilanDialog.dart';
+import 'package:santriku/widgets/child_card.dart';
+import 'package:santriku/widgets/task_column.dart';
+import 'package:santriku/widgets/active_project_card.dart';
+import 'package:santriku/widgets/top_container.dart';
+import 'package:santriku/injection_container.dart' as di;
 
 class HomePage extends StatefulWidget {
   static CircleAvatar calendarIcon() {
@@ -67,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 16, bottom: 24.0),
                 child: Center(
                   child: Image.asset(
-                    "assets/images/logo_saibupi.png",
+                    "assets/images/logo_santriku.png",
                     height: 100,
                   ),
                 ),
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Expanded(
                       child: InkWell(
-                        onTap: () => Get.to(read_tips_solusi()),
+                        onTap: () => Get.to(image_slide()),
                         child: Container(
                             margin: EdgeInsets.only(right: 8),
                             padding: EdgeInsets.all(8.0),
@@ -97,47 +96,7 @@ class _HomePageState extends State<HomePage> {
                                         "assets/images/book_lover.png")),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 16.0),
-                                  child: Text("Tips & Solusi",
-                                      style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () => Get.to(read_penggunaan_gadget()),
-                        child: Container(
-                            margin: EdgeInsets.only(right: 8),
-                            padding: EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: Color(0xFFAEDBF8),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Stack(
-                              children: [
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Image.asset(
-                                        "assets/images/online_tech.png")),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 16.0),
-                                  child: Text("Pemanfaatan Gadget",
+                                  child: Text("Image Slider",
                                       style: TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 18,

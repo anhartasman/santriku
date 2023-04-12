@@ -4,20 +4,20 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyEvaluation.dart';
-import 'package:saibupi/bloc/family_evaluation_save/bloc.dart';
-import 'package:saibupi/enums/enum_pertanyaan_evaluasi.dart';
-import 'package:saibupi/helpers/extensions/ext_string.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/decorations/box_decoration.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
-import 'package:saibupi/widgets/back_button.dart';
-import 'package:saibupi/widgets/reusables/ReusableFormField.dart';
-import 'package:saibupi/widgets/top_container.dart';
+import 'package:santriku/architectures/domain/entities/StudentEvaluation.dart';
+import 'package:santriku/bloc/student_evaluation_save/bloc.dart';
+import 'package:santriku/enums/enum_pertanyaan_evaluasi.dart';
+import 'package:santriku/helpers/extensions/ext_string.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/decorations/box_decoration.dart';
+import 'package:santriku/widgets/TampilanDialog.dart';
+import 'package:santriku/widgets/back_button.dart';
+import 'package:santriku/widgets/reusables/ReusableFormField.dart';
+import 'package:santriku/widgets/top_container.dart';
 
 class form_evaluation extends StatefulWidget {
-  final int childId;
-  const form_evaluation({required this.childId});
+  final int studentId;
+  const form_evaluation({required this.studentId});
   @override
   State<form_evaluation> createState() => _form_evaluationState();
 }
@@ -41,11 +41,11 @@ class _form_evaluationState extends State<form_evaluation> {
       return;
     }
 
-    BlocProvider.of<FamilyEvaluationSaveBloc>(context)
-        .add(FamilyEvaluationSaveBlocStart(FamilyEvaluation(
+    BlocProvider.of<StudentEvaluationSaveBloc>(context)
+        .add(StudentEvaluationSaveBlocStart(StudentEvaluation(
       id: 0,
       date: selectedDate!.toTanggal("yyyy-MM-dd"),
-      childId: widget.childId,
+      studentId: widget.studentId,
       answers: jawabanList,
     )));
   }
@@ -105,17 +105,17 @@ class _form_evaluationState extends State<form_evaluation> {
               Expanded(
                   child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: BlocConsumer<FamilyEvaluationSaveBloc,
-                    FamilyEvaluationSaveBlocState>(listener: (context, state) {
-                  if (state is FamilyEvaluationSaveOnError) {
+                child: BlocConsumer<StudentEvaluationSaveBloc,
+                    StudentEvaluationSaveBlocState>(listener: (context, state) {
+                  if (state is StudentEvaluationSaveOnError) {
                     TampilanDialog.showDialogAlert(state.errorMessage);
                   }
-                  if (state is FamilyEvaluationSaveOnSuccess) {
+                  if (state is StudentEvaluationSaveOnSuccess) {
                     TampilanDialog.showDialogSuccess("Data tersimpan")
                         .then((value) => Get.back(result: true));
                   }
                 }, builder: (context, state) {
-                  if (state is FamilyEvaluationSaveOnStarted) {
+                  if (state is StudentEvaluationSaveOnStarted) {
                     return Center(
                       child: SpinKitWave(
                         color: Warna.warnaUtama,

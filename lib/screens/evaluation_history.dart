@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saibupi/bloc/family_evaluation_history/bloc.dart';
-import 'package:saibupi/dates_list.dart';
-import 'package:saibupi/enums/enum_pertanyaan_evaluasi.dart';
-import 'package:saibupi/helpers/extensions/ext_string.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/DailyEvaluation.dart';
-import 'package:saibupi/widgets/EvaluationBox.dart';
-import 'package:saibupi/widgets/ShimmerHome.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
-import 'package:saibupi/widgets/calendar_dates.dart';
-import 'package:saibupi/widgets/task_container.dart';
-import 'package:saibupi/screens/create_new_task_page.dart';
-import 'package:saibupi/widgets/back_button.dart';
+import 'package:santriku/bloc/student_evaluation_history/bloc.dart';
+import 'package:santriku/dates_list.dart';
+import 'package:santriku/enums/enum_pertanyaan_evaluasi.dart';
+import 'package:santriku/helpers/extensions/ext_string.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/DailyEvaluation.dart';
+import 'package:santriku/widgets/EvaluationBox.dart';
+import 'package:santriku/widgets/ShimmerHome.dart';
+import 'package:santriku/widgets/TampilanDialog.dart';
+import 'package:santriku/widgets/calendar_dates.dart';
+import 'package:santriku/widgets/task_container.dart';
+import 'package:santriku/screens/create_new_task_page.dart';
+import 'package:santriku/widgets/back_button.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class evaluation_history extends StatelessWidget {
-  final int childId;
+  final int studentId;
   final DateTime firstDate;
   final DateTime lastDate;
   const evaluation_history({
-    required this.childId,
+    required this.studentId,
     required this.firstDate,
     required this.lastDate,
   });
@@ -56,16 +56,16 @@ class evaluation_history extends StatelessWidget {
             20,
             0,
           ),
-          child: BlocConsumer<FamilyEvaluationHistoryBloc,
-              FamilyEvaluationHistoryBlocState>(listener: (context, state) {
-            if (state is FamilyEvaluationHistoryOnError) {
+          child: BlocConsumer<StudentEvaluationHistoryBloc,
+              StudentEvaluationHistoryBlocState>(listener: (context, state) {
+            if (state is StudentEvaluationHistoryOnError) {
               TampilanDialog.showDialogAlert(state.errorMessage);
             }
           }, builder: (context, state) {
-            if (state is FamilyEvaluationHistoryOnStarted) {
+            if (state is StudentEvaluationHistoryOnStarted) {
               return ShimmerHome();
             }
-            if (state is FamilyEvaluationHistoryOnSuccess) {
+            if (state is StudentEvaluationHistoryOnSuccess) {
               return ListView(
                 children: <Widget>[
                   MyBackButton(),

@@ -1,4 +1,4 @@
-package com.learn.saibupi
+package com.learn.santriku
 
 import io.flutter.embedding.android.FlutterActivity
 

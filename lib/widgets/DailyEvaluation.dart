@@ -6,17 +6,17 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyEvaluation.dart';
-import 'package:saibupi/dates_list.dart';
-import 'package:saibupi/enums/enum_pertanyaan_evaluasi.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/EvaluationBox.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
-import 'package:saibupi/widgets/calendar_dates.dart';
+import 'package:santriku/architectures/domain/entities/StudentEvaluation.dart';
+import 'package:santriku/dates_list.dart';
+import 'package:santriku/enums/enum_pertanyaan_evaluasi.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/EvaluationBox.dart';
+import 'package:santriku/widgets/TampilanDialog.dart';
+import 'package:santriku/widgets/calendar_dates.dart';
 
 class DailyEvaluation extends StatelessWidget {
-  final List<FamilyEvaluation> evaluasiList;
+  final List<StudentEvaluation> evaluasiList;
   final DateTime firstDate;
   const DailyEvaluation({
     Key? key,

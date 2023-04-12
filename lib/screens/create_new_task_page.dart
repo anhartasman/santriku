@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/top_container.dart';
-import 'package:saibupi/widgets/back_button.dart';
-import 'package:saibupi/widgets/my_text_field.dart';
-import 'package:saibupi/screens/home_page.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/top_container.dart';
+import 'package:santriku/widgets/back_button.dart';
+import 'package:santriku/widgets/my_text_field.dart';
+import 'package:santriku/screens/home_page.dart';
 
 class CreateNewTaskPage extends StatelessWidget {
   @override

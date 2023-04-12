@@ -4,10 +4,10 @@ import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:saibupi/enums/enum_pertanyaan_evaluasi.dart';
-import 'package:saibupi/helpers/extensions/ext_string.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/calendar_dates.dart';
+import 'package:santriku/enums/enum_pertanyaan_evaluasi.dart';
+import 'package:santriku/helpers/extensions/ext_string.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/calendar_dates.dart';
 
 class EvaluationBox extends StatelessWidget {
   final PertanyaanEvaluasi thePertanyaanEvaluasi;

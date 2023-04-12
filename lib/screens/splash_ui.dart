@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/SplashContent.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/SplashContent.dart';
 
 class SplashUI extends StatelessWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/Warna.dart';
 
 const text_field_abu = InputDecoration(
   fillColor: Colors.grey,

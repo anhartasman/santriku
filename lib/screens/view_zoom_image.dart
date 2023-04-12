@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
 
 class view_zoom_image extends StatelessWidget {
   final String theImage;

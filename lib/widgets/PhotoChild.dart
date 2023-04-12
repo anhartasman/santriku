@@ -6,9 +6,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/TampilanDialog.dart';
 
 class PhotoChild extends StatefulWidget {
   final File? initialFile;

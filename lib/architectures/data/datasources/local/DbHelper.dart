@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:saibupi/architectures/data/datasources/local/queries/EvaluationQuery.dart';
-import 'package:saibupi/architectures/data/datasources/local/queries/MemberQuery.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyEvaluation.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
+import 'package:santriku/architectures/data/datasources/local/queries/EvaluationQuery.dart';
+import 'package:santriku/architectures/data/datasources/local/queries/StudentQuery.dart';
+import 'package:santriku/architectures/domain/entities/StudentEvaluation.dart';
+import 'package:santriku/architectures/domain/entities/PesantrenMember.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -20,14 +20,14 @@ class DbHelper {
   //baris terakhir singleton
 
   final tables = [
-    MemberQuery.CREATE_TABLE,
+    StudentQuery.CREATE_TABLE,
     EvaluationQuery.createTable(),
   ]; // membuat daftar table yang akan dibuat
 
   Future<Database> initDb() async {
     //untuk menentukan nama database dan lokasi yg dibuat
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'contact.db';
+    String path = directory.path + 'santriku.db';
 
     //create, read databases
     var todoDatabase = openDatabase(path,
@@ -58,21 +58,21 @@ class DbHelper {
     }
   }
 
-  Future<List<FamilyMember>> selectFamilyMember({int? id}) async {
+  Future<List<PesantrenMember>> selectPesantrenMember({int? id}) async {
     final db = await initDb();
     final result = await db.query(
-      MemberQuery.TABLE_NAME,
+      StudentQuery.TABLE_NAME,
       where: id == null ? null : "id=?",
       whereArgs: id == null ? null : [id],
-      orderBy: 'childRank',
+      orderBy: 'studentClass',
     );
 
-    List<FamilyMember> theRespon = [];
+    List<PesantrenMember> theRespon = [];
 
     for (var theResult in result) {
       var newMap = Map.of(theResult);
 
-      var rowAbsen = FamilyMember.fromMap(newMap);
+      var rowAbsen = PesantrenMember.fromMap(newMap);
 
       theRespon.add(rowAbsen);
     }
@@ -84,23 +84,23 @@ class DbHelper {
   }
 
 //create databases
-  Future<int> insertFamilyMember(FamilyMember object) async {
+  Future<int> insertPesantrenMember(PesantrenMember object) async {
     final db = await initDb();
     var theMap = object.toMap();
     theMap.remove("id");
-    int count = await db.insert(MemberQuery.TABLE_NAME, theMap);
+    int count = await db.insert(StudentQuery.TABLE_NAME, theMap);
     return count;
   }
 
 //update databases
-  Future<int> updateFamilyMember(FamilyMember object) async {
+  Future<int> updatePesantrenMember(PesantrenMember object) async {
     final db = await initDb();
-    int count = await db.update(MemberQuery.TABLE_NAME, object.toMap(),
+    int count = await db.update(StudentQuery.TABLE_NAME, object.toMap(),
         where: 'id=?', whereArgs: [object.id]);
     return count;
   }
 
-  Future<int> insertFamilyEvaluation(FamilyEvaluation object) async {
+  Future<int> insertStudentEvaluation(StudentEvaluation object) async {
     final db = await initDb();
     var theMap = evaluationMap(object);
     theMap.remove("id");
@@ -108,7 +108,7 @@ class DbHelper {
     return count;
   }
 
-  Future<int> updateFamilyEvaluation(FamilyEvaluation object) async {
+  Future<int> updateStudentEvaluation(StudentEvaluation object) async {
     final db = await initDb();
     var theMap = evaluationMap(object);
     int count = await db.update(EvaluationQuery.TABLE_NAME, theMap,
@@ -116,7 +116,7 @@ class DbHelper {
     return count;
   }
 
-  Map<String, dynamic> evaluationMap(FamilyEvaluation theEvaluation) {
+  Map<String, dynamic> evaluationMap(StudentEvaluation theEvaluation) {
     var theMap = theEvaluation.toMap();
     theEvaluation.answers.asMap().forEach((key, value) {
       theMap["pertanyaan${key}"] = value;
@@ -126,7 +126,7 @@ class DbHelper {
     return theMap;
   }
 
-  Future<List<FamilyEvaluation>> selectFamilyEvaluation({int? id}) async {
+  Future<List<StudentEvaluation>> selectStudentEvaluation({int? id}) async {
     final db = await initDb();
     final result = await db.query(
       EvaluationQuery.TABLE_NAME,
@@ -135,7 +135,7 @@ class DbHelper {
       orderBy: 'id',
     );
 
-    List<FamilyEvaluation> theRespon = [];
+    List<StudentEvaluation> theRespon = [];
 
     for (var theResult in result) {
       var newMap = Map.of(theResult);
@@ -149,7 +149,7 @@ class DbHelper {
     return theRespon;
   }
 
-  Future<List<FamilyEvaluation>> selectFamilyEvaluationByDate(
+  Future<List<StudentEvaluation>> selectStudentEvaluationByDate(
       String date) async {
     final db = await initDb();
     final result = await db.query(
@@ -159,7 +159,7 @@ class DbHelper {
       orderBy: 'id',
     );
 
-    List<FamilyEvaluation> theRespon = [];
+    List<StudentEvaluation> theRespon = [];
 
     for (var theResult in result) {
       var newMap = Map.of(theResult);
@@ -173,7 +173,7 @@ class DbHelper {
     return theRespon;
   }
 
-  Future<List<FamilyEvaluation>> selectFamilyEvaluationByDateRange(
+  Future<List<StudentEvaluation>> selectStudentEvaluationByDateRange(
       String firstDate, String lastDate) async {
     final db = await initDb();
     final result = await db.query(
@@ -186,7 +186,7 @@ class DbHelper {
       orderBy: 'id',
     );
 
-    List<FamilyEvaluation> theRespon = [];
+    List<StudentEvaluation> theRespon = [];
 
     for (var theResult in result) {
       var newMap = Map.of(theResult);
@@ -200,21 +200,21 @@ class DbHelper {
     return theRespon;
   }
 
-  FamilyEvaluation evaluationFromMap(Map<String, Object?> newMap) {
+  StudentEvaluation evaluationFromMap(Map<String, Object?> newMap) {
     List<int> answers = [];
     for (int i = 0; i < 10; i++) {
       answers.add(newMap["pertanyaan$i"] as int);
     }
     newMap["answers"] = answers;
-    var rowAbsen = FamilyEvaluation.fromMap(newMap);
+    var rowAbsen = StudentEvaluation.fromMap(newMap);
     return rowAbsen;
   }
 
 //delete databases
   Future<int> delete(int id) async {
     final db = await initDb();
-    int count =
-        await db.delete(MemberQuery.TABLE_NAME, where: 'id=?', whereArgs: [id]);
+    int count = await db
+        .delete(StudentQuery.TABLE_NAME, where: 'id=?', whereArgs: [id]);
     return count;
   }
 }

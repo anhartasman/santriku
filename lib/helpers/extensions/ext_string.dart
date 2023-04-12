@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
-import 'package:saibupi/helpers/extensions/ext_int.dart';
-import 'package:saibupi/helpers/formatters/FormatterRupiah.dart';
-import 'package:saibupi/helpers/formatters/FormatterTanggal.dart';
+import 'package:santriku/helpers/extensions/ext_int.dart';
+import 'package:santriku/helpers/formatters/FormatterRupiah.dart';
+import 'package:santriku/helpers/formatters/FormatterTanggal.dart';
 
 extension intParsing on int? {
   String toRupiah() {

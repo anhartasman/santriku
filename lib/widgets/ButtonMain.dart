@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/Warna.dart';
 
 class ButtonMain extends StatelessWidget {
   final String tulisan;

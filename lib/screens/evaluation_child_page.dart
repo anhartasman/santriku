@@ -3,24 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_randomcolor/flutter_randomcolor.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:saibupi/architectures/domain/entities/FamilyMember.dart';
-import 'package:saibupi/bloc/family_member_detail/family_member_detail_bloc.dart';
-import 'package:saibupi/bloc/family_member_list/bloc.dart';
-import 'package:saibupi/bloc/family_member_list/family_member_list_bloc.dart';
-import 'package:saibupi/bloc/family_member_list/family_member_list_bloc_event.dart';
-import 'package:saibupi/helpers/colors/HexColor.dart';
-import 'package:saibupi/routes/app_routes.dart';
-import 'package:saibupi/screens/calendar_page.dart';
-import 'package:saibupi/screens/form_child.dart';
-import 'package:saibupi/theme/colors/Warna.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
+import 'package:santriku/architectures/domain/entities/PesantrenMember.dart';
+import 'package:santriku/bloc/pesantren_member_detail/pesantren_member_detail_bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/pesantren_member_list_bloc.dart';
+import 'package:santriku/bloc/pesantren_member_list/pesantren_member_list_bloc_event.dart';
+import 'package:santriku/helpers/colors/HexColor.dart';
+import 'package:santriku/routes/app_routes.dart';
+import 'package:santriku/screens/calendar_page.dart';
+import 'package:santriku/screens/form_student.dart';
+import 'package:santriku/theme/colors/Warna.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:saibupi/widgets/TampilanDialog.dart';
-import 'package:saibupi/widgets/child_card.dart';
-import 'package:saibupi/widgets/task_column.dart';
-import 'package:saibupi/widgets/active_project_card.dart';
-import 'package:saibupi/widgets/top_container.dart';
-import 'package:saibupi/injection_container.dart' as di;
+import 'package:santriku/widgets/TampilanDialog.dart';
+import 'package:santriku/widgets/child_card.dart';
+import 'package:santriku/widgets/task_column.dart';
+import 'package:santriku/widgets/active_project_card.dart';
+import 'package:santriku/widgets/top_container.dart';
+import 'package:santriku/injection_container.dart' as di;
 
 class evaluation_child_page extends StatelessWidget {
   const evaluation_child_page({super.key});
@@ -38,7 +38,7 @@ class evaluation_child_page extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16, bottom: 24.0),
                 child: Center(
                   child: Image.asset(
-                    "assets/images/logo_saibupi.png",
+                    "assets/images/logo_santriku.png",
                     height: 100,
                   ),
                 ),
@@ -48,27 +48,27 @@ class evaluation_child_page extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 child: MultiBlocProvider(
                   providers: [
-                    BlocProvider<FamilyMemberListBloc>(
+                    BlocProvider<PesantrenMemberListBloc>(
                         create: (BuildContext context) =>
-                            di.sl<FamilyMemberListBloc>()
-                              ..add(FamilyMemberListBlocRetrieve())),
-                    BlocProvider<FamilyMemberDetailBloc>(
+                            di.sl<PesantrenMemberListBloc>()
+                              ..add(PesantrenMemberListBlocRetrieve())),
+                    BlocProvider<PesantrenMemberDetailBloc>(
                         create: (BuildContext context) =>
-                            di.sl<FamilyMemberDetailBloc>()),
+                            di.sl<PesantrenMemberDetailBloc>()),
                   ],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      _HeaderListAnak(),
+                      _HeaderListSantri(),
                       SizedBox(height: 5.0),
-                      BlocConsumer<FamilyMemberListBloc,
-                              FamilyMemberListBlocState>(
+                      BlocConsumer<PesantrenMemberListBloc,
+                              PesantrenMemberListBlocState>(
                           listener: (context, state) {
-                        if (state is FamilyMemberListOnError) {
+                        if (state is PesantrenMemberListOnError) {
                           TampilanDialog.showDialogAlert(state.errorMessage);
                         }
                       }, builder: (context, state) {
-                        if (state is FamilyMemberListOnStarted) {
+                        if (state is PesantrenMemberListOnStarted) {
                           return Center(
                             child: SpinKitWave(
                               color: Warna.warnaUtama,
@@ -101,8 +101,8 @@ class evaluation_child_page extends StatelessWidget {
                             children: List.generate(jumColumn, (index) {
                               final firstIdx = index * 2;
                               final secondIdx = firstIdx + 1;
-                              FamilyMember? child1;
-                              FamilyMember? child2;
+                              PesantrenMember? child1;
+                              PesantrenMember? child2;
                               if (memberList.length > firstIdx) {
                                 child1 = memberList[firstIdx];
                               }
@@ -148,8 +148,8 @@ class evaluation_child_page extends StatelessWidget {
   }
 }
 
-class _HeaderListAnak extends StatelessWidget {
-  const _HeaderListAnak({super.key});
+class _HeaderListSantri extends StatelessWidget {
+  const _HeaderListSantri({super.key});
 
   Text subheading(String title) {
     return Text(
@@ -179,12 +179,12 @@ class _HeaderListAnak extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        subheading('Daftar Anak'),
+        subheading('Daftar Santri'),
         GestureDetector(
           onTap: () => Get.toNamed(Routes.formChildRoute)?.then((value) {
             if (value == true) {
-              BlocProvider.of<FamilyMemberListBloc>(context)
-                  .add(FamilyMemberListBlocRetrieve());
+              BlocProvider.of<PesantrenMemberListBloc>(context)
+                  .add(PesantrenMemberListBlocRetrieve());
             }
           }),
           child: plusIcon(),

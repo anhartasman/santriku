@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:saibupi/routes/app_routes.dart';
-import 'package:saibupi/screens/SplashCheckPermission.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/SplashContent.dart';
+import 'package:santriku/routes/app_routes.dart';
+import 'package:santriku/screens/SplashCheckPermission.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/SplashContent.dart';
 
 class splash_screen extends StatefulWidget {
   @override

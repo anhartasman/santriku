@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
 
 class SplashContent extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class SplashContent extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 40.0),
           child: Center(
             child: Image.asset(
-              "assets/images/logo_saibupi.png",
+              "assets/images/logo_santriku.png",
               height: 100,
             ),
           ),
@@ -32,7 +32,7 @@ class SplashContent extends StatelessWidget {
                     BorderRadius.horizontal(right: Radius.circular(18)),
                 color: Color(0xFF455A64),
               ),
-              child: Text("Aplikasi Ibu Pintar",
+              child: Text("Aplikasi Mutabaah",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 18,
@@ -56,7 +56,7 @@ class SplashContent extends StatelessWidget {
                     BorderRadius.horizontal(left: Radius.circular(18)),
                 color: Color(0xFF455A64),
               ),
-              child: Text("Mendampingi Anak di Era digital",
+              child: Text("Mendampingi Perkembangan Santri",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 18,
@@ -67,7 +67,7 @@ class SplashContent extends StatelessWidget {
           ),
         ),
         Image.asset(
-          "assets/images/pana.png",
+          "assets/images/studentstudy.jpeg",
           height: appHeight * 0.4,
         ),
       ],

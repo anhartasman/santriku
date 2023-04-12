@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:saibupi/dates_list.dart';
-import 'package:saibupi/theme/colors/light_colors.dart';
-import 'package:saibupi/widgets/calendar_dates.dart';
-import 'package:saibupi/widgets/task_container.dart';
-import 'package:saibupi/screens/create_new_task_page.dart';
-import 'package:saibupi/widgets/back_button.dart';
+import 'package:santriku/dates_list.dart';
+import 'package:santriku/theme/colors/light_colors.dart';
+import 'package:santriku/widgets/calendar_dates.dart';
+import 'package:santriku/widgets/task_container.dart';
+import 'package:santriku/screens/create_new_task_page.dart';
+import 'package:santriku/widgets/back_button.dart';
 
 class CalendarPage extends StatelessWidget {
   Widget _dashedText() {
