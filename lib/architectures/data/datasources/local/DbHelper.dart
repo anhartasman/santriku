@@ -7,6 +7,7 @@ import 'package:santriku/architectures/domain/entities/StudentEvaluation.dart';
 import 'package:santriku/architectures/domain/entities/PesantrenMember.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class DbHelper {
   //membuat method singleton
@@ -35,8 +36,21 @@ class DbHelper {
       path = directory.path + 'santriku.db';
     }
     //create, read databases
-    var todoDatabase = openDatabase(path,
-        version: 4, onCreate: _createDb, onUpgrade: _onUpgradeDB);
+    var factory = databaseFactoryFfiWeb;
+    late Future<Database> todoDatabase;
+    if (kIsWeb) {
+      todoDatabase = factory.openDatabase(
+        path,
+        options: OpenDatabaseOptions(
+          version: 4,
+          onCreate: _createDb,
+          onUpgrade: _onUpgradeDB,
+        ),
+      );
+    } else {
+      todoDatabase = openDatabase(path,
+          version: 4, onCreate: _createDb, onUpgrade: _onUpgradeDB);
+    }
 
     //mengembalikan nilai object sebagai hasil dari fungsinya
     return todoDatabase;
