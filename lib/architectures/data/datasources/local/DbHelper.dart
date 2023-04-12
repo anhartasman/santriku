@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:santriku/architectures/data/datasources/local/queries/EvaluationQuery.dart';
 import 'package:santriku/architectures/data/datasources/local/queries/StudentQuery.dart';
 import 'package:santriku/architectures/domain/entities/StudentEvaluation.dart';
@@ -26,9 +27,13 @@ class DbHelper {
 
   Future<Database> initDb() async {
     //untuk menentukan nama database dan lokasi yg dibuat
-    Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'santriku.db';
-
+    String path = "";
+    if (kIsWeb) {
+      path = 'santriku.db';
+    } else {
+      Directory directory = await getApplicationDocumentsDirectory();
+      path = directory.path + 'santriku.db';
+    }
     //create, read databases
     var todoDatabase = openDatabase(path,
         version: 4, onCreate: _createDb, onUpgrade: _onUpgradeDB);

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -51,12 +52,18 @@ class _form_studentState extends State<form_student> {
 
     // String base64Image = base64Encode(fotoChild!.readAsBytesSync());
 
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-    final fileName = Path.basename(fotoChild!.path);
-    final newPath = fileBeda ? '$appDocPath/$fileName' : fotoChild!.path;
-    if (fileBeda) {
-      final File localImage = await fotoChild!.copy(newPath);
+    String newPath = "";
+
+    if (kIsWeb) {
+      newPath = fotoChild!.path;
+    } else {
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      final fileName = Path.basename(fotoChild!.path);
+      newPath = fileBeda ? '$appDocPath/$fileName' : fotoChild!.path;
+      if (fileBeda) {
+        final File localImage = await fotoChild!.copy(newPath);
+      }
     }
 
     BlocProvider.of<PesantrenMemberSaveBloc>(context)

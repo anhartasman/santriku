@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -79,11 +80,17 @@ class ChildCard extends StatelessWidget {
                     circularStrokeCap: CircularStrokeCap.round,
                     progressColor: circleColor,
                     backgroundColor: Colors.white,
-                    center: CircleAvatar(
-                      backgroundColor: LightColors.kBlue,
-                      radius: 35.0,
-                      backgroundImage: FileImage(File(theMember.picture)),
-                    ),
+                    center: kIsWeb
+                        ? CircleAvatar(
+                            backgroundColor: LightColors.kBlue,
+                            radius: 35.0,
+                            backgroundImage: NetworkImage(theMember.picture),
+                          )
+                        : CircleAvatar(
+                            backgroundColor: LightColors.kBlue,
+                            radius: 35.0,
+                            backgroundImage: FileImage(File(theMember.picture)),
+                          ),
                   ),
                 ),
                 Column(
