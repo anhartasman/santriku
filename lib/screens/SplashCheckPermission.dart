@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:santriku/screens/models/IzinAplikasi.dart';
@@ -73,6 +74,13 @@ class _SplashCheckPermissionState extends State<SplashCheckPermission> {
   StreamController<String> controllerProgress = StreamController<String>();
 
   void checkUserPermission() async {
+    if (kIsWeb) {
+      // running on the web!
+
+      Future.delayed(Duration(milliseconds: 500))
+          .then((value) => widget.onSuccess());
+      return;
+    }
     permissionIdx = 0;
     try {
       while (true) {
