@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -77,13 +78,19 @@ class PhotoChildState extends State<PhotoChild> {
     final boxWidth = appWidth * 0.5;
     final boxHeight = boxWidth * 0.5;
     return (theFile != null)
-        ? CircleAvatar(
-            backgroundColor: LightColors.kBlue,
-            radius: 50.0,
-            backgroundImage: FileImage(
-              theFile!,
-            ),
-          )
+        ? kIsWeb
+            ? CircleAvatar(
+                backgroundColor: LightColors.kBlue,
+                radius: 50.0,
+                backgroundImage: NetworkImage(theFile!.path),
+              )
+            : CircleAvatar(
+                backgroundColor: LightColors.kBlue,
+                radius: 50.0,
+                backgroundImage: FileImage(
+                  theFile!,
+                ),
+              )
         : CircleAvatar(
             backgroundColor: LightColors.kBlue,
             radius: 50.0,
